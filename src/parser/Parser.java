@@ -43,4 +43,7 @@ public class Parser {
         }
     }
 
+    public ArrayList<String> getWords() {
+        return words_;
+    }
 }
