@@ -2,28 +2,49 @@ package csv_converter;
 
 import parser.Parser;
 
+import java.util.Comparator;
 import java.util.Hashtable;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Converter {
     private Parser input_;
-    private Hashtable<String, Integer> table_;
+    private TreeMap<String, Integer> map_;
     public Converter(String[] args) throws Exception {
         input_ = new Parser(args[0]);
-        table_ = new Hashtable<>();
+        map_ = new TreeMap<>();
         for (int i = 0; i != input_.getWords().size(); i++) {
-            if (table_.get(input_.getWords().get(i)) == null) {
-                table_.put(input_.getWords().get(i), 1);
+            if (map_.get(input_.getWords().get(i)) == null) {
+                map_.put(input_.getWords().get(i), 1);
             }
             else {
-                int value = table_.get(input_.getWords().get(i)) + 1;
-                table_.put(input_.getWords().get(i), value);
+                int value = map_.get(input_.getWords().get(i)) + 1;
+                map_.put(input_.getWords().get(i), value);
             }
         }
     }
-    public void print_table() {
-        for (int i = 0; i != input_.getWords().size(); ++i) {
-            System.out.println((table_.get(input_.getWords().get(i))));
-            System.out.println((input_.getWords().get(i)));
+    public TreeMap<String, Integer> sortMap(TreeMap<String, Integer> map) {
+        Comparator<String> comparator = new Comparator<String>() {
+            public int compare(String k1, String k2) {
+                int comp = map.get(k1).compareTo(map.get(k2));
+                if (comp == 0)
+                    return 1;
+                else
+                    return comp;
+            }
+        };
+        TreeMap<String, Integer> sorted_map = new TreeMap<>(comparator);
+        sorted_map.putAll(map_);
+        return sorted_map;
+    }
+    public void run() {
+        
+    }
+    public void print_table(TreeMap<String, Integer> map) {
+        for(Map.Entry<String,Integer> entry : map.entrySet()) {
+            String key = entry.getKey();
+            Integer value = entry.getValue();
+            System.out.println(key + " => " + value);
         }
     }
 }
