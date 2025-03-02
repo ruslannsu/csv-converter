@@ -15,7 +15,7 @@ public class Parser {
             for (int i = 0; i != line.length(); ++i) {
                 try {
                     if (line.charAt(i) == ' ') {
-                        if (line.charAt(i - 1) == '?' || line.charAt(i - 1) == '!' || line.charAt(i - 1) == ',') {
+                        if (line.charAt(i - 1) == '?' || line.charAt(i - 1) == '!' || line.charAt(i - 1) == ',' || line.charAt(i - 1) == '.') {
                             words_.add(line.substring(last_index, i - 1));
                             last_index = i + 1;
                             continue;
@@ -24,6 +24,10 @@ public class Parser {
                         last_index = i + 1;
                     }
                     if (i == line.length() - 1) {
+                        if (line.charAt(i) == '?' || line.charAt(i) == '!' || line.charAt(i) == ',' || line.charAt(i) == '.') {
+                            words_.add(line.substring(last_index, i));
+                            break;
+                        }
                         words_.add(line.substring(last_index, i + 1));
                         break;
                     }
@@ -37,12 +41,6 @@ public class Parser {
         }
         reader.close();
     }
-    public void printer(){
-        for (int i = 0; i != words_.size(); ++i) {
-            System.out.println(words_.get(i));
-        }
-    }
-
     public ArrayList<String> getWords() {
         return words_;
     }
