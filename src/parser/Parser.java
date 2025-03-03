@@ -16,19 +16,27 @@ public class Parser {
                 try {
                     if (line.charAt(i) == ' ') {
                         if (line.charAt(i - 1) == '?' || line.charAt(i - 1) == '!' || line.charAt(i - 1) == ',' || line.charAt(i - 1) == '.') {
-                            words_.add(line.substring(last_index, i - 1));
+                            String fixed_word = Character.toUpperCase(line.substring(last_index, i - 1).charAt(0)) + line.substring(last_index + 1, i - 1);
+                           //words_.add(line.substring(last_index, i - 1));
+                            words_.add(fixed_word);
                             last_index = i + 1;
                             continue;
                         }
-                        words_.add(line.substring(last_index, i));
+                        String fixed_word = Character.toUpperCase(line.substring(last_index, i).charAt(0)) + line.substring(last_index + 1, i);
+                       // words_.add(line.substring(last_index, i));
+                        words_.add(fixed_word);
                         last_index = i + 1;
                     }
                     if (i == line.length() - 1) {
                         if (line.charAt(i) == '?' || line.charAt(i) == '!' || line.charAt(i) == ',' || line.charAt(i) == '.') {
-                            words_.add(line.substring(last_index, i));
+                            //words_.add(line.substring(last_index, i));
+                            String fixed_word = Character.toUpperCase(line.substring(last_index, i).charAt(0)) + line.substring(last_index + 1, i);
+                            words_.add(fixed_word);
                             break;
                         }
-                        words_.add(line.substring(last_index, i + 1));
+                        //words_.add(line.substring(last_index, i + 1));
+                        String fixed_word = Character.toUpperCase(line.substring(last_index, i + 1).charAt(0)) + line.substring(last_index + 1, i + 1);
+                        words_.add(fixed_word);
                         break;
                     }
                 }
@@ -38,6 +46,7 @@ public class Parser {
                     }
                 }
             line = reader.readLine();
+
         }
         reader.close();
     }

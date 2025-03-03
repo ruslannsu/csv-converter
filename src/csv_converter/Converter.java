@@ -28,9 +28,9 @@ public class Converter {
     public TreeMap<String, Integer> sortMap(TreeMap<String, Integer> map) {
         Comparator<String> comparator = new Comparator<String>() {
             public int compare(String k1, String k2) {
-                int comp = map.get(k1).compareTo(map.get(k2));
+                int comp = map.get(k2).compareTo(map.get(k1));
                 if (comp == 0)
-                    return 1;
+                    return -1;
                 else
                     return comp;
             }
